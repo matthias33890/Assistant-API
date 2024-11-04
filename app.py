@@ -18,14 +18,14 @@ def str_to_bool(str_input):
 
 
 # Load environment variables
-openai_api_key = os.environ("OPENAI_API_KEY")
-instructions = os.environ("RUN_INSTRUCTIONS", "")
-enabled_file_upload_message = os.environ(
+openai_api_key = st.secrets("OPENAI_API_KEY")
+instructions = st.secrets("RUN_INSTRUCTIONS", "")
+enabled_file_upload_message = st.secrets(
     "ENABLED_FILE_UPLOAD_MESSAGE", "Upload a file"
 )
-azure_openai_endpoint = os.environ("AZURE_OPENAI_ENDPOINT")
-azure_openai_key = os.environ("AZURE_OPENAI_KEY")
-authentication_required = str_to_bool(os.environ("AUTHENTICATION_REQUIRED", False))
+azure_openai_endpoint = st.secrets("AZURE_OPENAI_ENDPOINT")
+azure_openai_key = st.secrets("AZURE_OPENAI_KEY")
+authentication_required = str_to_bool(st.secrets("AUTHENTICATION_REQUIRED", False))
 
 # Load authentication configuration
 if authentication_required:
@@ -288,9 +288,9 @@ def load_chat_screen(assistant_id, assistant_title):
 
 def main():
     # Check if multi-agent settings are defined
-    multi_agents = os.environ.get("OPENAI_ASSISTANTS", None)
-    single_agent_id = os.environ.get("ASSISTANT_ID", None)
-    single_agent_title = os.environ.get("ASSISTANT_TITLE", "Assistants API UI")
+    multi_agents = st.secrets.get("OPENAI_ASSISTANTS", None)
+    single_agent_id = st.secrets.get("ASSISTANT_ID", None)
+    single_agent_title = st.secrets.get("ASSISTANT_TITLE", "Assistants API UI")
 
     if (
         authentication_required
