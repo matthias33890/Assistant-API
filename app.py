@@ -6,6 +6,7 @@ import json
 import streamlit as st
 import openai
 from openai import AssistantEventHandler
+from tools import TOOL_MAP
 from typing_extensions import override
 #from dotenv import load_dotenv
 import streamlit_authenticator as stauth
@@ -18,14 +19,14 @@ def str_to_bool(str_input):
 
 
 # Load environment variables
-openai_api_key = os.environ("OPENAI_API_KEY")
-instructions = os.environ("RUN_INSTRUCTIONS", "")
-enabled_file_upload_message = os.environ(
+openai_api_key = os.environ.get("OPENAI_API_KEY")
+instructions = os.environ.get("RUN_INSTRUCTIONS", "")
+enabled_file_upload_message = os.environ.get(
     "ENABLED_FILE_UPLOAD_MESSAGE", "Upload a file"
 )
-azure_openai_endpoint = os.environ("AZURE_OPENAI_ENDPOINT")
-azure_openai_key = os.environ("AZURE_OPENAI_KEY")
-authentication_required = str_to_bool(os.environ("AUTHENTICATION_REQUIRED", False))
+azure_openai_endpoint = os.environ.get("AZURE_OPENAI_ENDPOINT")
+azure_openai_key = os.environ.get("AZURE_OPENAI_KEY")
+authentication_required = str_to_bool(os.environ.get("AUTHENTICATION_REQUIRED", False))
 
 # Load authentication configuration
 if authentication_required:
